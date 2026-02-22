@@ -5,4 +5,10 @@ public class TaxRules {
         if ("staff".equalsIgnoreCase(customerType)) return 2.0;
         return 8.0;
     }
+
+    public static double calculateTax(double subtotal, String customerType) {
+        double taxPct = TaxRules.taxPercent(customerType);
+        double tax = subtotal * (taxPct / 100.0);
+        return tax;
+    }
 }
