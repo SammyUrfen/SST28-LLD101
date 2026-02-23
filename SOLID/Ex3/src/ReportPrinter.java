@@ -1,5 +1,5 @@
 public class ReportPrinter {
-    public void print(StudentProfile s, EligibilityEngineResult r) {
+    public static void print(StudentProfile s, EligibilityEngineResult r) {
         System.out.println("Student: " + s.name + " (CGR=" + String.format("%.2f", s.cgr)
                 + ", attendance=" + s.attendancePct + ", credits=" + s.earnedCredits
                 + ", flag=" + LegacyFlags.nameOf(s.disciplinaryFlag) + ")");
