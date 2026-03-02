@@ -19,16 +19,19 @@ public class TryIt {
         IncidentTicket t = service.createTicket("TCK-1001", "reporter@example.com", "Payment failing on checkout");
         System.out.println("Created: " + t);
 
-        // Demonstrate post-creation mutation through service
-        service.assign(t, "agent@example.com");
-        service.escalateToCritical(t);
-        System.out.println("\nAfter service mutations: " + t);
+        // Demonstrate post-creation "mutation" through service — returns NEW tickets
+        IncidentTicket assigned = service.assign(t, "agent@example.com");
+        IncidentTicket escalated = service.escalateToCritical(assigned);
+        System.out.println("\nAfter assign + escalate (new ticket): " + escalated);
+        System.out.println("Original is unchanged:                " + t);
 
-        // Demonstrate external mutation via leaked list reference
-        List<String> tags = t.getTags();
-        tags.add("HACKED_FROM_OUTSIDE");
-        System.out.println("\nAfter external tag mutation: " + t);
-
-        // Starter compiles; after refactor, you should redesign updates to create new objects instead.
+        // Demonstrate external mutation via tags — has no effect
+        List<String> tags = escalated.getTags();
+        try {
+            tags.add("HACKED_FROM_OUTSIDE");
+        } catch (UnsupportedOperationException e) {
+            System.out.println("\nExternal tag mutation blocked: " + e.getClass().getSimpleName());
+        }
+        System.out.println("Ticket still safe: " + escalated);
     }
 }
