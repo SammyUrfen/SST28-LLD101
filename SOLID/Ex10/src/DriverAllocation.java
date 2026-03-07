@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
 public interface DriverAllocation {
+    String allocate(String studentId);
 }

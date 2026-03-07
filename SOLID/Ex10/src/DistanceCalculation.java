@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
-
-public class DistanceCalculation {
+public interface DistanceCalculation {
+    double km(GeoPoint a, GeoPoint b);
 }
